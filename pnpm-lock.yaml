@@ -11,6 +11,9 @@ dependencies:
   '@seleniumhq/side-utils':
     specifier: ^3.17.2
     version: 3.17.2
+  google-closure-library:
+    specifier: ^20230802.0.0
+    version: 20230802.0.0
   plasmo:
     specifier: 0.84.2
     version: 0.84.2(react-dom@18.2.0)(react@18.2.0)
@@ -3705,6 +3708,10 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
+    dev: false
+
+  /google-closure-library@20230802.0.0:
+    resolution: {integrity: sha512-h2lBEX2tjWwfR+dhFukGER15vKY+4cA3nRqwKSOsBdyizlOxTAHOWbEYiGnMoom3/SrVeQ5uG0eKsbxQ3wbsxA==}
     dev: false
 
   /gopd@1.0.1:

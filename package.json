@@ -12,6 +12,7 @@
   "dependencies": {
     "@medv/finder": "^3.2.0",
     "@seleniumhq/side-utils": "^3.17.2",
+    "google-closure-library": "^20230802.0.0",
     "plasmo": "0.84.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
