@@ -6,6 +6,12 @@ const CustomButton = () => {
 
   return (
     <div
+      onMouseEnter={(event) => {
+        event.target.style.visibility = "hidden"
+        setTimeout(function () {
+          event.target.style.visibility = "visible"
+        }, 1000)
+      }}
       style={{
         border: "1px solid #d30100",
         borderRadius: "50px",
@@ -28,7 +34,6 @@ const CustomButton = () => {
       <button
         onClick={async (event) => {
           let res = await sendToBackground({
-
             body: {
               message: "Hello"
             },

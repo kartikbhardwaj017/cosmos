@@ -2,8 +2,24 @@
 
 import { finder } from "@medv/finder"
 
+const style = window.document.createElement("style")
+style.id = "crosshair-style"
+style.textContent = `
+        .crosshairCursor {
+            cursor: crosshair !important;
+        }
+
+        .action-sheet {
+            cursor: default !important;
+        }
+    `
+if (!window.document.getElementById("crosshair-style")) {
+  document.head.appendChild(style)
+} else {
+  document.getElementById("crosshair-style").remove()
+}
+
 /* eslint-disable */
-// GENERATED CODE - DO NOT EDIT
 function findElement() {
   return function () {
     var k = this
@@ -3341,19 +3357,19 @@ export default class LocatorBuilders {
       try {
         locator = this.buildWith(finderName, el)
         if (locator) {
-          console.log("locator is ", locator)
+          // console.log("locator is ", locator)
 
           locator = String(locator)
           //Samit: The following is a quickfix for above commented code to stop exceptions on almost every locator builder
           //TODO: the builderName should NOT be used as a strategy name, create a feature to allow locatorBuilders to specify this kind of behaviour
           //TODO: Useful if a builder wants to capture a different element like a parent. Use the this.elementEquals
           let fe = this.findElement(locator)
-          console.log("fe is", fe)
-          console.log(el == fe)
+          // console.log("fe is", fe)
+          // console.log(el == fe)
 
           if (el == fe) {
             locators.push([locator, finderName])
-            console.log("locator array is ", locators)
+            // console.log("locator array is ", locators)
           }
           locators.push([locator, finderName])
         }
@@ -4415,7 +4431,6 @@ Recorder.addEventHandler(
   "mouseOver",
   "mouseover",
   function (event) {
-    console.log("mouse over event", event)
     if (window.document.documentElement)
       nowNode = window.document.documentElement.getElementsByTagName("*").length
     if (pageLoaded === true) {
@@ -4752,7 +4767,7 @@ function addRecordingIndicator() {
     // recordingIndicator.src =
     //   '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta http-equiv="x-ua-compatible" content="ie=edge" />\n    <meta name="viewport" content="width=device-width, initial-scale=1" />\n    <title>Selenium IDE Recording Indicator</title>\n    <style>\n      body {\n        font-family:\n          system,\n          -apple-system,\n          BlinkMacSystemFont,\n          "Helvetica Neue",\n          Arial,\n          sans-serif;\n        font-size: 22px;\n        font-weight: 200;\n      }\n\n      #circle {\n        height: 10px;\n        width: 10px;\n        background: #e80600;\n        border-radius: 50%;\n        margin: 0 10px;\n        animation: fadeIn 1s infinite alternate;\n        visibility: visible;\n      }\n\n      #content {\n        color: #e80600;\n        text-align: center;\n      }\n\n      @keyframes fadeIn {\n        from {\n          opacity: 0;\n        }\n      }\n    </style>\n  </head>\n\n  <body>\n    <div\n      style="\n        display: flex;\n        align-items: center;\n        flex-direction: row;\n        margin: 10px;\n      "\n      aria-live="assertive">\n      <img id="ide-img" style="width: 28px; margin: 0 10px" />\n      <div style="height: 28px; border-left: 1px solid #c6c6c6"></div>\n      <div id="circle">\n        <h1>yoyo bro</h1>\n      </div>\n      <span id="content" aria-label="Selenium IDE is recording..." role="alert">\n        Selenium IDE is recording...\n      </span>\n    </div>\n  </body>\n</html>\n'
     recordingIndicator.id = "selenium-ide-indicator"
-    
+
     // and give it some content
 
     // add the text node to the newly created div
@@ -4855,18 +4870,20 @@ export function record(
   insertBeforeLastCommand?: any,
   actualFrameLocation?: any
 ) {
-  console.log({
-    command: command,
-    target: target,
-    value: value,
-    insertBeforeLastCommand: insertBeforeLastCommand
-    // frameLocation:
-    //   actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
-    // commandSideexTabId: contentSideexTabId
-  })
+  console.log(
+    JSON.stringify({
+      command: command,
+      target: target,
+      value: value,
+      insertBeforeLastCommand: insertBeforeLastCommand
+      // frameLocation:
+      //   actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+      // commandSideexTabId: contentSideexTabId
+    })
+  )
 }
 
 recorder.attach()
-console.log("yoyo bro")
 
-// window.record = record
+window.record = record
+window.locatorBuilders = locatorBuilders
