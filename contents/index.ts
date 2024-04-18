@@ -3831,6 +3831,8 @@ LocatorBuilders.add("xpath:innerText", function (this: LocatorBuilders, el) {
   }
 })
 
+let recordingIndicator
+
 function Recorder(window: Window) {
   this.window = window
   this.eventListeners = {}
@@ -4413,7 +4415,7 @@ Recorder.addEventHandler(
   "mouseOver",
   "mouseover",
   function (event) {
-    console.log("mouse over event", event);
+    console.log("mouse over event", event)
     if (window.document.documentElement)
       nowNode = window.document.documentElement.getElementsByTagName("*").length
     if (pageLoaded === true) {
@@ -4463,7 +4465,7 @@ Recorder.addMutationObserver(
         removedNodes[0].nodeName === "IFRAME" &&
         removedNodes[0].id !== "selenium-ide-indicator"
       ) {
-        browser.runtime.sendMessage({ frameRemoved: true }).catch(() => {})
+        // browser.runtime.sendMessage({ frameRemoved: true }).catch(() => {})
       }
     })
   },
@@ -4739,6 +4741,70 @@ Recorder.prototype.attach = function () {
       tabCheck: null
     }
     attachInputListeners(this.recordingState)
+    addRecordingIndicator()
+  }
+}
+
+function addRecordingIndicator() {
+  if (!recordingIndicator || true) {
+    const indicatorIndex = window.parent.frames.length
+    recordingIndicator = window.document.createElement("iframe")
+    // recordingIndicator.src =
+    //   '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta http-equiv="x-ua-compatible" content="ie=edge" />\n    <meta name="viewport" content="width=device-width, initial-scale=1" />\n    <title>Selenium IDE Recording Indicator</title>\n    <style>\n      body {\n        font-family:\n          system,\n          -apple-system,\n          BlinkMacSystemFont,\n          "Helvetica Neue",\n          Arial,\n          sans-serif;\n        font-size: 22px;\n        font-weight: 200;\n      }\n\n      #circle {\n        height: 10px;\n        width: 10px;\n        background: #e80600;\n        border-radius: 50%;\n        margin: 0 10px;\n        animation: fadeIn 1s infinite alternate;\n        visibility: visible;\n      }\n\n      #content {\n        color: #e80600;\n        text-align: center;\n      }\n\n      @keyframes fadeIn {\n        from {\n          opacity: 0;\n        }\n      }\n    </style>\n  </head>\n\n  <body>\n    <div\n      style="\n        display: flex;\n        align-items: center;\n        flex-direction: row;\n        margin: 10px;\n      "\n      aria-live="assertive">\n      <img id="ide-img" style="width: 28px; margin: 0 10px" />\n      <div style="height: 28px; border-left: 1px solid #c6c6c6"></div>\n      <div id="circle">\n        <h1>yoyo bro</h1>\n      </div>\n      <span id="content" aria-label="Selenium IDE is recording..." role="alert">\n        Selenium IDE is recording...\n      </span>\n    </div>\n  </body>\n</html>\n'
+    recordingIndicator.id = "selenium-ide-indicator"
+    
+    // and give it some content
+
+    // add the text node to the newly created div
+
+    // add the newly created element and its content into the DOM
+    recordingIndicator.style.border = "1px solid #d30100"
+    recordingIndicator.style.borderRadius = "50px"
+    recordingIndicator.style.position = "fixed"
+    recordingIndicator.style.bottom = "36px"
+    recordingIndicator.style.right = "36px"
+    recordingIndicator.style.width = "400px"
+    recordingIndicator.style.height = "50px"
+    recordingIndicator.style["background-color"] = "#f7f7f7"
+    recordingIndicator.style["box-shadow"] = "0 7px 10px 0 rgba(0,0,0,0.1)"
+    recordingIndicator.style.transition = "bottom 100ms linear"
+    recordingIndicator.style["z-index"] = 1000000000000000
+    recordingIndicator.addEventListener(
+      "mouseenter",
+      function (event) {
+        event.target.style.visibility = "hidden"
+        setTimeout(function () {
+          event.target.style.visibility = "visible"
+        }, 1000)
+      },
+      false
+    )
+    // window.document.body.appendChild(recordingIndicator)
+
+    // browser.runtime.onMessage.addListener(
+    //   function (
+    //     message,
+    //     sender, // eslint-disable-line
+    //     sendResponse
+    //   ) {
+    //     if (message.recordNotification) {
+    //       recordingIndicator.contentWindow.postMessage(
+    //         {
+    //           direction: "from-recording-module",
+    //           command: message.command,
+    //           target: message.target,
+    //           value: message.value
+    //         },
+    //         "*"
+    //       )
+    //       recordingIndicator.style.borderColor = "black"
+    //       setTimeout(() => {
+    //         recordingIndicator.style.borderColor = "#d30100"
+    //       }, 1000)
+    //       sendResponse(true)
+    //     }
+    //   }
+    // )
   }
 }
 

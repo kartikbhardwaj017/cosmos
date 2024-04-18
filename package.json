@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@medv/finder": "^3.2.0",
+    "@plasmohq/messaging": "^0.6.2",
+    "@plasmohq/storage": "^1.10.0",
     "@seleniumhq/side-utils": "^3.17.2",
     "google-closure-library": "^20230802.0.0",
     "plasmo": "0.84.2",
