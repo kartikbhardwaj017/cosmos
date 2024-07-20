@@ -2,6 +2,8 @@
 
 import { finder } from "@medv/finder"
 
+import { Storage } from "@plasmohq/storage"
+
 const style = window.document.createElement("style")
 style.id = "crosshair-style"
 style.textContent = `
@@ -4863,13 +4865,56 @@ Recorder.prototype.detach = function () {
 // window.contentSideexTabId = contentSideexTabId
 // window.Recorder = Recorder
 
-export function record(
+const storage = new Storage()
+
+const loadEvents = async () => {
+  // Using a promise to handle the asynchronous chrome.storage API
+  const promise = new Promise((resolve, reject) => {
+    chrome.storage.local.get(["actionLogs"], function (result) {
+      if (chrome.runtime.lastError) {
+        reject(new Error(chrome.runtime.lastError))
+      } else {
+        resolve(result.actionLogs || [])
+      }
+    })
+  })
+  return promise
+}
+export async function record(
   command,
   target,
   value,
   insertBeforeLastCommand?: any,
   actualFrameLocation?: any
 ) {
+  const actionLogs = await loadEvents()
+  console.log(`action log : ${JSON.stringify(actionLogs)}`)
+  chrome.storage.local.set({
+    actionLogs: [
+      ...actionLogs,
+      {
+        command: command,
+        target: target,
+        value: value,
+        insertBeforeLastCommand: insertBeforeLastCommand
+        // frameLocation:
+        //   actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+        // commandSideexTabId: contentSideexTabId
+      }
+    ]
+  })
+  // await storage.set("actionLogs", [
+  //   {
+  //     command: command,
+  //     target: target,
+  //     value: value,
+  //     insertBeforeLastCommand: insertBeforeLastCommand
+  //     // frameLocation:
+  //     //   actualFrameLocation != undefined ? actualFrameLocation : frameLocation,
+  //     // commandSideexTabId: contentSideexTabId
+  //   }
+  // ])
+
   console.log(
     JSON.stringify({
       command: command,

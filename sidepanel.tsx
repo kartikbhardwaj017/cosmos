@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
 
+import { Storage } from "@plasmohq/storage"
+
+const storage = new Storage()
+
 function IndexSidePanel() {
   const [events, setEvents] = useState([])
 
@@ -18,6 +22,8 @@ function IndexSidePanel() {
       })
 
       try {
+        const data = await storage.get("actionLogs") // "value"
+
         const actionLogs = await promise
         setEvents(actionLogs)
       } catch (error) {
@@ -38,6 +44,13 @@ function IndexSidePanel() {
     return () => chrome.storage.onChanged.removeListener(onStorageChange)
   }, [])
 
+  let getUrl = () => {
+    const blob = new Blob([JSON.stringify(events)], { type: "text/plain" })
+
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob)
+    return url
+  }
   return (
     <div
       style={{
@@ -46,30 +59,29 @@ function IndexSidePanel() {
         padding: 16,
         overflowY: "auto" // Add scrolling for many events
       }}>
-      <h2>
-        Welcome to your
-        <a
-          href="https://www.plasmo.com"
-          target="_blank"
-          rel="noopener noreferrer">
-          {" "}
-          Plasmo
-        </a>{" "}
-        Extension!
-      </h2>
+      <button
+        onClick={(event) => {
+          chrome.storage.local.set({ actionLogs: [] })
+        }}>
+        Click here to start new recording
+      </button>
       <div>
-        <strong>Events:</strong>
+        <strong>steps:</strong>
         <ul>
-          {events.map((event, index) => (
-            <li key={index}>{JSON.stringify(event)}</li>
-          ))}
+          {events.length > 0
+            ? events.map((event, index) => (
+                <li key={index}>{JSON.stringify(event)}</li>
+              ))
+            : "Click to start recording"}
         </ul>
       </div>
       <a
-        href="https://docs.plasmo.com"
-        target="_blank"
-        rel="noopener noreferrer">
-        View Docs
+        href={getUrl()}
+        download={"commands.json"}
+        onClick={(event) => {
+          chrome.storage.local.set({ actionLogs: [] })
+        }}>
+        download steps json
       </a>
     </div>
   )
