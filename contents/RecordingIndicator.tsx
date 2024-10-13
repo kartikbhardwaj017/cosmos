@@ -38,7 +38,7 @@ const CustomButton = () => {
               message: "Hello"
             },
             name: "ping",
-            extensionId: "aipmibibkhfjlgkidankffejogomhbcg"
+            extensionId: "obcbegnflkleciggjgpbjcfehjeeplcj"
           })
           console.log(res)
         }}>

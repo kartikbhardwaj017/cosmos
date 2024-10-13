@@ -1,12 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-
-
-import { useStorage } from "@plasmohq/storage/hook";
-
-
-
-
+import { useStorage } from "@plasmohq/storage/hook"
 
 const ActionSheet = ({ options, onClose, x, y, selectedElement }) => {
   const handleOptionClick = (event, action) => {
@@ -111,7 +105,7 @@ const HoverButton = () => {
       <button
         onClick={toggleExtractButton}
         style={{ cursor: crosshair ? "crosshair" : "auto" }}>
-        Activate Crosshair
+        Extract element
       </button>
       {showMenu && (
         <ActionSheet

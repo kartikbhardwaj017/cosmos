@@ -1,8 +1,15 @@
 // import "google-closure-library"
 
 import { finder } from "@medv/finder"
+import axios from "axios"
+import { record as sessionRecorder } from "rrweb"
 
 import { Storage } from "@plasmohq/storage"
+
+import {
+  connect,
+  ExtensionTransport,
+} from 'puppeteer-core/lib/esm/puppeteer/puppeteer-core-browser.js';
 
 const style = window.document.createElement("style")
 style.id = "crosshair-style"
@@ -35,7 +42,7 @@ function findElement() {
       a = a.split(".")
       var c = k
       a[0] in c || !c.execScript || c.execScript("var " + a[0])
-      for (var d; a.length && (d = a.shift()); )
+      for (var d; a.length && (d = a.shift());)
         !a.length && l(b)
           ? (c[d] = b)
           : c[d] && c[d] !== Object.prototype[d]
@@ -95,7 +102,7 @@ function findElement() {
     }
     function ia(a, b, c) {
       Function.prototype.bind &&
-      -1 != Function.prototype.bind.toString().indexOf("native code")
+        -1 != Function.prototype.bind.toString().indexOf("native code")
         ? (ia = fa)
         : (ia = ha)
       return ia.apply(null, arguments)
@@ -109,7 +116,7 @@ function findElement() {
       }
     }
     function p(a, b) {
-      function c() {}
+      function c() { }
       c.prototype = b.prototype
       a.U = b.prototype
       a.prototype = new c()
@@ -353,11 +360,11 @@ function findElement() {
     }
     var sa = String.prototype.trim
       ? function (a) {
-          return a.trim()
-        }
+        return a.trim()
+      }
       : function (a) {
-          return a.replace(/^[\s\xa0]+|[\s\xa0]+$/g, "")
-        }
+        return a.replace(/^[\s\xa0]+|[\s\xa0]+$/g, "")
+      }
     function ta(a, b) {
       var c = 0
       a = sa(String(a)).split(".")
@@ -406,7 +413,7 @@ function findElement() {
       return new xa(a)
     }
     var za =
-        /\$?(?:(?![0-9-\.])(?:\*|[\w-\.]+):)?(?![0-9-\.])(?:\*|[\w-\.]+)|\/\/|\.\.|::|\d+(?:\.\d*)?|\.\d+|"[^"]*"|'[^']*'|[!<>]=|\s+|./g,
+      /\$?(?:(?![0-9-\.])(?:\*|[\w-\.]+):)?(?![0-9-\.])(?:\*|[\w-\.]+)|\/\/|\.\.|::|\d+(?:\.\d*)?|\.\d+|"[^"]*"|'[^']*'|[!<>]=|\s+|./g,
       Ba = /^\s/
     function u(a, b) {
       return a.b[a.a + (b || 0)]
@@ -497,9 +504,9 @@ function findElement() {
         : "*" == this.c
           ? !0
           : this.c ==
-            (a.namespaceURI
-              ? a.namespaceURI.toLowerCase()
-              : "http://www.w3.org/1999/xhtml")
+          (a.namespaceURI
+            ? a.namespaceURI.toLowerCase()
+            : "http://www.w3.org/1999/xhtml")
     }
     Ha.prototype.f = function () {
       return this.j
@@ -599,9 +606,9 @@ function findElement() {
       return y("iPhone") && !y("iPod") && !y("iPad")
     }
     var Ua =
-        "backgroundColor borderTopColor borderRightColor borderBottomColor borderLeftColor color outlineColor".split(
-          " "
-        ),
+      "backgroundColor borderTopColor borderRightColor borderBottomColor borderLeftColor color outlineColor".split(
+        " "
+      ),
       Va = /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/,
       Wa = /^#(?:[0-9a-f]{3}){1,2}$/i,
       Xa =
@@ -772,7 +779,7 @@ function findElement() {
     function tb(a) {
       return (a = a.exec(x)) ? a[1] : ""
     }
-    ;(function () {
+    ; (function () {
       if (mb) return tb(/Firefox\/([0-9.]+)/)
       if (C || bb || ab) return fb
       if (qb)
@@ -836,7 +843,7 @@ function findElement() {
       return a ? new Bb(I(a)) : na || (na = new Bb())
     }
     function Cb(a) {
-      for (; a && 1 != a.nodeType; ) a = a.previousSibling
+      for (; a && 1 != a.nodeType;) a = a.previousSibling
       return a
     }
     function Db(a, b) {
@@ -844,7 +851,7 @@ function findElement() {
       if (a.contains && 1 == b.nodeType) return a == b || a.contains(b)
       if ("undefined" != typeof a.compareDocumentPosition)
         return a == b || !!(a.compareDocumentPosition(b) & 16)
-      for (; b && a != b; ) b = b.parentNode
+      for (; b && a != b;) b = b.parentNode
       return b == a
     }
     function Eb(a, b) {
@@ -871,7 +878,7 @@ function findElement() {
             : !d && Db(f, a)
               ? Gb(b, a)
               : (c ? a.sourceIndex : e.sourceIndex) -
-                (d ? b.sourceIndex : f.sourceIndex)
+              (d ? b.sourceIndex : f.sourceIndex)
       }
       d = I(a)
       c = d.createRange()
@@ -885,11 +892,11 @@ function findElement() {
     function Gb(a, b) {
       var c = a.parentNode
       if (c == b) return -1
-      for (; b.parentNode != c; ) b = b.parentNode
+      for (; b.parentNode != c;) b = b.parentNode
       return Fb(b, a)
     }
     function Fb(a, b) {
-      for (; (b = b.previousSibling); ) if (b == a) return -1
+      for (; (b = b.previousSibling);) if (b == a) return -1
       return 1
     }
     function I(a) {
@@ -897,7 +904,7 @@ function findElement() {
     }
     function Hb(a, b) {
       a && (a = a.parentNode)
-      for (var c = 0; a; ) {
+      for (var c = 0; a;) {
         if (b(a)) return a
         a = a.parentNode
         c++
@@ -941,21 +948,21 @@ function findElement() {
         c = a.nodeType
       1 == c &&
         ((b = a.textContent),
-        (b = void 0 == b || null == b ? a.innerText : b),
-        (b = void 0 == b || null == b ? "" : b))
+          (b = void 0 == b || null == b ? a.innerText : b),
+          (b = void 0 == b || null == b ? "" : b))
       if ("string" != typeof b)
         if (F && "title" == a.nodeName.toLowerCase() && 1 == c) b = a.text
         else if (9 == c || 1 == c) {
           a = 9 == c ? a.documentElement : a.firstChild
           c = 0
           var d = []
-          for (b = ""; a; ) {
+          for (b = ""; a;) {
             do
               1 != a.nodeType && (b += a.nodeValue),
                 F && "title" == a.nodeName.toLowerCase() && (b += a.text),
                 (d[c++] = a)
             while ((a = a.firstChild))
-            for (; c && !(a = d[--c].nextSibling); );
+            for (; c && !(a = d[--c].nextSibling););
           }
         } else b = a.nodeValue
       return b
@@ -987,10 +994,10 @@ function findElement() {
         a = Nb(a)
         if ("*" != a && ((f = b.getElementsByTagName(a)), !f)) return e
         if (c) {
-          for (var g = [], h = 0; (b = f[h++]); ) Jb(b, c, d) && g.push(b)
+          for (var g = [], h = 0; (b = f[h++]);) Jb(b, c, d) && g.push(b)
           f = g
         }
-        for (h = 0; (b = f[h++]); ) ("*" == a && "!" == b.tagName) || e.add(b)
+        for (h = 0; (b = f[h++]);) ("*" == a && "!" == b.tagName) || e.add(b)
         return e
       }
       Ob(a, b, c, d, e)
@@ -1010,7 +1017,7 @@ function findElement() {
           : a instanceof z
             ? Ob(a, b, c, d, e)
             : b.getElementsByTagName &&
-              ((b = b.getElementsByTagName(a.f())),
+            ((b = b.getElementsByTagName(a.f())),
               B(b, function (a) {
                 Jb(a, c, d) && e.add(a)
               }))
@@ -1028,7 +1035,7 @@ function findElement() {
           ((f = Ma(f, function (a) {
             return a.tagName && a.tagName.toLowerCase() == g
           })),
-          !f)
+            !f)
         )
           return e
         c &&
@@ -1036,7 +1043,7 @@ function findElement() {
             return Jb(a, c, d)
           }))
         B(f, function (a) {
-          ;("*" == g && ("!" == a.tagName || ("*" == g && 1 != a.nodeType))) ||
+          ; ("*" == g && ("!" == a.tagName || ("*" == g && 1 != a.nodeType))) ||
             e.add(a)
         })
         return e
@@ -1079,7 +1086,7 @@ function findElement() {
         var c = a.indexOf(":")
         0 < c &&
           ((a = [a.slice(0, c), a.slice(c + 1)]),
-          2 == a.length && b.push(a[0].toLowerCase(), ":", a[1], ";"))
+            2 == a.length && b.push(a[0].toLowerCase(), ":", a[1], ";"))
       })
       b = b.join("")
       return (b = ";" == b.charAt(b.length - 1) ? b : b + ";")
@@ -1168,7 +1175,7 @@ function findElement() {
       if (!b.a) return a
       var c = a.a
       b = b.a
-      for (var d = null, e, f = 0; c && b; ) {
+      for (var d = null, e, f = 0; c && b;) {
         e = c.f
         var g = b.f
         e == g || (e instanceof ub && g instanceof ub && e.a == g.a)
@@ -1176,11 +1183,11 @@ function findElement() {
           : 0 < Eb(c.f, b.f)
             ? ((e = b), (b = b.a))
             : ((e = c), (c = c.a))
-        ;(e.b = d) ? (d.a = e) : (a.a = e)
+          ; (e.b = d) ? (d.a = e) : (a.a = e)
         d = e
         f++
       }
-      for (e = c || b; e; ) (e.b = d), (d = d.a = e), f++, (e = e.a)
+      for (e = c || b; e;) (e.b = d), (d = d.a = e), f++, (e = e.a)
       a.b = d
       a.l = f
       return a
@@ -1256,11 +1263,11 @@ function findElement() {
       this.c == gc &&
         (c.b || c.g || 4 == c.i || 0 == c.i || !b.f
           ? b.b ||
-            b.g ||
-            4 == b.i ||
-            0 == b.i ||
-            !c.f ||
-            (this.f = { name: c.f.name, w: b })
+          b.g ||
+          4 == b.i ||
+          0 == b.i ||
+          !c.f ||
+          (this.f = { name: c.f.name, w: b })
           : (this.f = { name: b.f.name, w: c }))
     }
     p(fc, N)
@@ -1434,33 +1441,33 @@ function findElement() {
       if (b.length < a.J)
         throw Error(
           "Function " +
-            a.j +
-            " expects at least" +
-            a.J +
-            " arguments, " +
-            b.length +
-            " given"
+          a.j +
+          " expects at least" +
+          a.J +
+          " arguments, " +
+          b.length +
+          " given"
         )
       if (null !== a.D && b.length > a.D)
         throw Error(
           "Function " +
-            a.j +
-            " expects at most " +
-            a.D +
-            " arguments, " +
-            b.length +
-            " given"
+          a.j +
+          " expects at most " +
+          a.D +
+          " arguments, " +
+          b.length +
+          " given"
         )
       a.P &&
         B(b, function (b, d) {
           if (4 != b.i)
             throw Error(
               "Argument " +
-                d +
-                " to function " +
-                a.j +
-                " is not of type Nodeset: " +
-                b
+              d +
+              " to function " +
+              a.j +
+              " is not of type Nodeset: " +
+              b
             )
         })
       N.call(this, a.i)
@@ -1469,17 +1476,17 @@ function findElement() {
       cc(
         this,
         a.g ||
-          Oa(b, function (a) {
-            return a.g
-          })
+        Oa(b, function (a) {
+          return a.g
+        })
       )
       dc(
         this,
         (a.O && !b.length) ||
-          (a.N && !!b.length) ||
-          Oa(b, function (a) {
-            return a.b
-          })
+        (a.N && !!b.length) ||
+        Oa(b, function (a) {
+          return a.b
+        })
       )
     }
     p(mc, N)
@@ -1907,7 +1914,7 @@ function findElement() {
       this.b = a.b
       1 == this.c.length &&
         ((a = this.c[0]),
-        a.C ||
+          a.C ||
           a.c != sc ||
           ((a = a.u), "*" != a.f() && (this.f = { name: a.f(), w: null })))
     }
@@ -1951,7 +1958,7 @@ function findElement() {
         if (e.g || e.c != wc)
           if (e.g || e.c != xc) {
             var g = M(f)
-            for (b = e.a(new wa(g)); null != (g = M(f)); )
+            for (b = e.a(new wa(g)); null != (g = M(f));)
               (g = e.a(new wa(g))), (b = Xb(b, g))
           } else (g = M(f)), (b = e.a(new wa(g)))
         else {
@@ -2079,8 +2086,8 @@ function findElement() {
       a.S &&
         b &&
         ((a = b.name),
-        (a = F ? a.toLowerCase() : a),
-        (this.f = { name: a, w: b.w }))
+          (a = F ? a.toLowerCase() : a),
+          (this.f = { name: a, w: b.w }))
       a: {
         a = this.h
         for (b = 0; b < a.a.length; b++)
@@ -2103,7 +2110,7 @@ function findElement() {
       if (this.C)
         if (this.g || this.c != Cc)
           if (((b = ac(new Bc(Dc, new z("node")).a(a))), (c = M(b))))
-            for (a = this.m(c, d, e, f); null != (c = M(b)); )
+            for (a = this.m(c, d, e, f); null != (c = M(b));)
               a = Xb(a, this.m(c, d, e, f))
           else a = new K()
         else (a = Kb(this.u, b, d, e)), (a = lc(this.h, a, f))
@@ -2148,7 +2155,7 @@ function findElement() {
     T(
       "ancestor",
       function (a, b) {
-        for (var c = new K(); (b = b.parentNode); ) a.a(b) && Yb(c, b)
+        for (var c = new K(); (b = b.parentNode);) a.a(b) && Yb(c, b)
         return c
       },
       !0
@@ -2164,24 +2171,24 @@ function findElement() {
       !0
     )
     var sc = T(
-        "attribute",
-        function (a, b) {
-          var c = new K(),
-            d = a.f()
-          if ("style" == d && F && b.style)
-            return c.add(new ub(b.style, b, "style", b.style.cssText)), c
-          var e = b.attributes
-          if (e)
-            if ((a instanceof z && null === a.b) || "*" == d)
-              for (a = 0; (d = e[a]); a++)
-                F ? d.nodeValue && c.add(vb(b, d)) : c.add(d)
-            else
-              (d = e.getNamedItem(d)) &&
-                (F ? d.nodeValue && c.add(vb(b, d)) : c.add(d))
-          return c
-        },
-        !1
-      ),
+      "attribute",
+      function (a, b) {
+        var c = new K(),
+          d = a.f()
+        if ("style" == d && F && b.style)
+          return c.add(new ub(b.style, b, "style", b.style.cssText)), c
+        var e = b.attributes
+        if (e)
+          if ((a instanceof z && null === a.b) || "*" == d)
+            for (a = 0; (d = e[a]); a++)
+              F ? d.nodeValue && c.add(vb(b, d)) : c.add(d)
+          else
+            (d = e.getNamedItem(d)) &&
+              (F ? d.nodeValue && c.add(vb(b, d)) : c.add(d))
+        return c
+      },
+      !1
+    ),
       Cc = T(
         "child",
         function (a, b, c, d, e) {
@@ -2199,21 +2206,21 @@ function findElement() {
       )
     T("descendant", Kb, !1, !0)
     var Dc = T(
-        "descendant-or-self",
-        function (a, b, c, d) {
-          var e = new K()
-          Jb(b, c, d) && a.a(b) && e.add(b)
-          return Kb(a, b, c, d, e)
-        },
-        !1,
-        !0
-      ),
+      "descendant-or-self",
+      function (a, b, c, d) {
+        var e = new K()
+        Jb(b, c, d) && a.a(b) && e.add(b)
+        return Kb(a, b, c, d, e)
+      },
+      !1,
+      !0
+    ),
       wc = T(
         "following",
         function (a, b, c, d) {
           var e = new K()
           do
-            for (var f = b; (f = f.nextSibling); )
+            for (var f = b; (f = f.nextSibling);)
               Jb(f, c, d) && a.a(f) && e.add(f), (e = Kb(a, f, c, d, e))
           while ((b = b.parentNode))
           return e
@@ -2224,7 +2231,7 @@ function findElement() {
     T(
       "following-sibling",
       function (a, b) {
-        for (var c = new K(); (b = b.nextSibling); ) a.a(b) && c.add(b)
+        for (var c = new K(); (b = b.nextSibling);) a.a(b) && c.add(b)
         return c
       },
       !1
@@ -2237,17 +2244,17 @@ function findElement() {
       !1
     )
     var Gc = T(
-        "parent",
-        function (a, b) {
-          var c = new K()
-          if (9 == b.nodeType) return c
-          if (2 == b.nodeType) return c.add(b.ownerElement), c
-          b = b.parentNode
-          a.a(b) && c.add(b)
-          return c
-        },
-        !1
-      ),
+      "parent",
+      function (a, b) {
+        var c = new K()
+        if (9 == b.nodeType) return c
+        if (2 == b.nodeType) return c.add(b.ownerElement), c
+        b = b.parentNode
+        a.a(b) && c.add(b)
+        return c
+      },
+      !1
+    ),
       xc = T(
         "preceding",
         function (a, b, c, d) {
@@ -2257,7 +2264,7 @@ function findElement() {
           while ((b = b.parentNode))
           for (var g = 1, h = f.length; g < h; g++) {
             var v = []
-            for (b = f[g]; (b = b.previousSibling); ) v.unshift(b)
+            for (b = f[g]; (b = b.previousSibling);) v.unshift(b)
             for (var t = 0, m = v.length; t < m; t++)
               (b = v[t]),
                 Jb(b, c, d) && a.a(b) && e.add(b),
@@ -2271,7 +2278,7 @@ function findElement() {
     T(
       "preceding-sibling",
       function (a, b) {
-        for (var c = new K(); (b = b.previousSibling); ) a.a(b) && Yb(c, b)
+        for (var c = new K(); (b = b.previousSibling);) a.a(b) && Yb(c, b)
         return c
       },
       !0
@@ -2290,7 +2297,7 @@ function findElement() {
       this.b = b
     }
     function Jc(a) {
-      for (var b, c = []; ; ) {
+      for (var b, c = []; ;) {
         U(a, "Missing right hand side of binary expression.")
         b = Kc(a)
         var d = w(a.a)
@@ -2300,11 +2307,11 @@ function findElement() {
           a.a.a--
           break
         }
-        for (; c.length && e <= c[c.length - 1].K; )
+        for (; c.length && e <= c[c.length - 1].K;)
           b = new fc(c.pop(), c.pop(), b)
         c.push(b, d)
       }
-      for (; c.length; ) b = new fc(c.pop(), c.pop(), b)
+      for (; c.length;) b = new fc(c.pop(), c.pop(), b)
       return b
     }
     function U(a, b) {
@@ -2365,7 +2372,7 @@ function findElement() {
                   c = w(a.a)
                   c = oc[c] || null
                   w(a.a)
-                  for (d = []; ")" != u(a.a); ) {
+                  for (d = []; ")" != u(a.a);) {
                     U(a, "Missing function argument list.")
                     d.push(Jc(a))
                     if ("," != u(a.a)) break
@@ -2387,7 +2394,7 @@ function findElement() {
           else return c
         else (c = Pc(a, "/")), (d = new uc()), b.push(c)
       }
-      for (; vc(u(a.a)); )
+      for (; vc(u(a.a));)
         (c = w(a.a)),
           U(a, "Missing next location step."),
           (c = Pc(a, c)),
@@ -2443,7 +2450,7 @@ function findElement() {
       return c || new Bc(d, e, a, "//" == b)
     }
     function Qc(a) {
-      for (var b = []; "[" == u(a.a); ) {
+      for (var b = []; "[" == u(a.a);) {
         w(a.a)
         U(a, "Missing predicate expression.")
         var c = Jc(a)
@@ -2458,7 +2465,7 @@ function findElement() {
       var b = Oc(a)
       if ("|" != u(a.a)) a = b
       else {
-        for (b = [b]; "|" == w(a.a); )
+        for (b = [b]; "|" == w(a.a);)
           U(a, "Missing next union location path."), b.push(Oc(a))
         a.a.a--
         a = new Ac(b)
@@ -2472,8 +2479,8 @@ function findElement() {
       b
         ? ca(b) || (b = ia(b.lookupNamespaceURI, b))
         : (b = function () {
-            return null
-          })
+          return null
+        })
       var c = Jc(new Ic(a, b))
       if (!Ca(a)) throw Error("Bad token: " + w(a))
       this.evaluate = function (a, b) {
@@ -2570,7 +2577,7 @@ function findElement() {
     W.m = function (a, b, c) {
       var d = I(a)
       if (!d.documentElement) return null
-      ;(C || pb) && Tc(d ? d.parentWindow || d.defaultView : window)
+        ; (C || pb) && Tc(d ? d.parentWindow || d.defaultView : window)
       try {
         var e = d.createNSResolver ? d.createNSResolver(d.documentElement) : W.F
         if (C && !jb(7)) return d.evaluate.call(d, b, a, e, c, null)
@@ -2615,9 +2622,9 @@ function findElement() {
           throw new q(
             32,
             "Unable to locate an element with the xpath expression " +
-              b +
-              " because of the following error:\n" +
-              Aa
+            b +
+            " because of the following error:\n" +
+            Aa
           )
       }
     }
@@ -2626,10 +2633,10 @@ function findElement() {
         throw new q(
           32,
           'The result of the xpath expression "' +
-            b +
-            '" is: ' +
-            a +
-            ". It should be an element."
+          b +
+          '" is: ' +
+          a +
+          ". It should be an element."
         )
     }
     W.o = function (a, b) {
@@ -2700,10 +2707,10 @@ function findElement() {
           if (
             e &&
             ((b = Number(e[1])),
-            (c = Number(e[2])),
-            (d = Number(e[3])),
-            (e = Number(e[4])),
-            0 <= b &&
+              (c = Number(e[2])),
+              (d = Number(e[3])),
+              (e = Number(e[4])),
+              0 <= b &&
               255 >= b &&
               0 <= c &&
               255 >= c &&
@@ -2722,9 +2729,9 @@ function findElement() {
             if ((d = a.match(Ya)))
               if (
                 ((b = Number(d[1])),
-                (c = Number(d[2])),
-                (d = Number(d[3])),
-                0 <= b && 255 >= b && 0 <= c && 255 >= c && 0 <= d && 255 >= d)
+                  (c = Number(d[2])),
+                  (d = Number(d[3])),
+                  0 <= b && 255 >= b && 0 <= c && 255 >= c && 0 <= d && 255 >= d)
               ) {
                 b = [b, c, d, 1]
                 break b
@@ -2738,8 +2745,8 @@ function findElement() {
             if (
               !c &&
               ((c = "#" == b.charAt(0) ? b : "#" + b),
-              4 == c.length && (c = c.replace(Va, "#$1$1$2$2$3$3")),
-              !Wa.test(c))
+                4 == c.length && (c = c.replace(Va, "#$1$1$2$2$3$3")),
+                !Wa.test(c))
             ) {
               b = null
               break b
@@ -2769,9 +2776,9 @@ function findElement() {
           : L(a, "PATH") && (0 < b.height || 0 < b.width)
             ? ((a = X(a, "stroke-width")), !!a && 0 < parseInt(a, 10))
             : "hidden" != X(a, "overflow") &&
-              Oa(a.childNodes, function (a) {
-                return 3 == a.nodeType || (L(a) && d(a))
-              })
+            Oa(a.childNodes, function (a) {
+              return 3 == a.nodeType || (L(a) && d(a))
+            })
       }
       function e(a) {
         return (
@@ -2811,11 +2818,11 @@ function findElement() {
       function b(a) {
         if (L(a) && "none" == X(a, "display")) return !1
         var c
-        ;(c = a.parentNode) && c.shadowRoot && void 0 !== a.assignedSlot
-          ? (c = a.assignedSlot ? a.assignedSlot.parentNode : null)
-          : a.getDestinationInsertionPoints &&
+          ; (c = a.parentNode) && c.shadowRoot && void 0 !== a.assignedSlot
+            ? (c = a.assignedSlot ? a.assignedSlot.parentNode : null)
+            : a.getDestinationInsertionPoints &&
             ((a = a.getDestinationInsertionPoints()),
-            0 < a.length && (c = a[a.length - 1]))
+              0 < a.length && (c = a[a.length - 1]))
         if (Uc && c instanceof ShadowRoot) {
           if (c.host.shadowRoot !== c) return !1
           c = c.host
@@ -2831,13 +2838,13 @@ function findElement() {
           return a == g
             ? !0
             : 0 == X(a, "display").lastIndexOf("inline", 0) ||
-                ("absolute" == c && "static" == X(a, "position"))
+              ("absolute" == c && "static" == X(a, "position"))
               ? !1
               : !0
         }
         var c = X(a, "position")
         if ("fixed" == c) return (t = !0), a == g ? null : g
-        for (a = Vc(a); a && !b(a); ) a = Vc(a)
+        for (a = Vc(a); a && !b(a);) a = Vc(a)
         return a
       }
       function c(a) {
@@ -2848,7 +2855,7 @@ function findElement() {
         b = { x: X(b, "overflow-x"), y: X(b, "overflow-y") }
         a == g &&
           ((b.x = "visible" == b.x ? "auto" : b.x),
-          (b.y = "visible" == b.y ? "auto" : b.y))
+            (b.y = "visible" == b.y ? "auto" : b.y))
         return b
       }
       function d(a) {
@@ -2864,9 +2871,9 @@ function findElement() {
             C && jb("10") && b.pageYOffset != a.scrollTop
               ? new $a(a.scrollLeft, a.scrollTop)
               : new $a(
-                  b.pageXOffset || a.scrollLeft,
-                  b.pageYOffset || a.scrollTop
-                )
+                b.pageXOffset || a.scrollLeft,
+                b.pageYOffset || a.scrollTop
+              )
         } else a = new $a(a.scrollLeft, a.scrollTop)
         return a
       }
@@ -2902,7 +2909,7 @@ function findElement() {
             if (
               t &&
               ((m = d(a)),
-              e.f >= g.scrollWidth - m.x || e.a >= g.scrollHeight - m.y)
+                e.f >= g.scrollWidth - m.x || e.a >= g.scrollHeight - m.y)
             )
               return Y
             e = Zc(a)
@@ -2933,8 +2940,8 @@ function findElement() {
       C &&
         a.ownerDocument.body &&
         ((a = I(a)),
-        (b.a -= a.documentElement.clientLeft + a.body.clientLeft),
-        (b.b -= a.documentElement.clientTop + a.body.clientTop))
+          (b.a -= a.documentElement.clientLeft + a.body.clientLeft),
+          (b.b -= a.documentElement.clientTop + a.body.clientTop))
       return b
     }
     function $c(a) {
@@ -2947,17 +2954,17 @@ function findElement() {
         c.name &&
         (d = W.o('/descendant::*[@usemap = "#' + c.name + '"]', I(c))) &&
         ((e = Yc(d)),
-        b ||
+          b ||
           "default" == a.shape.toLowerCase() ||
           ((a = dd(a)),
-          (b = Math.min(Math.max(a.a, 0), e.width)),
-          (c = Math.min(Math.max(a.b, 0), e.height)),
-          (e = new G(
-            b + e.a,
-            c + e.b,
-            Math.min(a.width, e.width - b),
-            Math.min(a.height, e.height - c)
-          ))))
+            (b = Math.min(Math.max(a.a, 0), e.width)),
+            (c = Math.min(Math.max(a.b, 0), e.height)),
+            (e = new G(
+              b + e.a,
+              c + e.b,
+              Math.min(a.width, e.width - b),
+              Math.min(a.height, e.height - c)
+            ))))
       return { H: d, rect: e || new G(0, 0, 0, 0) }
     }
     function dd(a) {
@@ -3022,7 +3029,7 @@ function findElement() {
           c(a, b, v, t, m)
         })
         a = b[b.length - 1] || ""
-        ;(!d && "table-cell" != e) || !a || ra(a) || (b[b.length - 1] += " ")
+          ; (!d && "table-cell" != e) || !a || ra(a) || (b[b.length - 1] += " ")
         f && "run-in" != e && !/^[\s\xa0]*$/.test(a) && b.push("")
       }
     }
@@ -3045,8 +3052,8 @@ function findElement() {
           : a.replace(/[ \f\t\v\u2028\u2029]+/g, " ")
       "capitalize" == d
         ? (a = a.replace(/(^|\s)(\S)/g, function (a, b, c) {
-            return b + c.toUpperCase()
-          }))
+          return b + c.toUpperCase()
+        }))
         : "uppercase" == d
           ? (a = a.toUpperCase())
           : "lowercase" == d && (a = a.toLowerCase())
@@ -3070,26 +3077,26 @@ function findElement() {
       var b = 1,
         c = X(a, "opacity")
       c && (b = Number(c))
-      ;(a = Vc(a)) && (b *= ld(a))
+        ; (a = Vc(a)) && (b *= ld(a))
       return b
     }
     function md(a, b, c, d, e) {
       if (3 == a.nodeType && c) kd(a, b, d, e)
       else if (L(a))
         if (L(a, "CONTENT") || L(a, "SLOT")) {
-          for (var f = a; f.parentNode; ) f = f.parentNode
+          for (var f = a; f.parentNode;) f = f.parentNode
           f instanceof ShadowRoot
             ? ((a = L(a, "CONTENT")
-                ? a.getDistributedNodes()
-                : a.assignedNodes()),
+              ? a.getDistributedNodes()
+              : a.assignedNodes()),
               B(a, function (a) {
                 md(a, b, c, d, e)
               }))
             : gd(a, b)
         } else if (L(a, "SHADOW")) {
-          for (f = a; f.parentNode; ) f = f.parentNode
+          for (f = a; f.parentNode;) f = f.parentNode
           if (f instanceof ShadowRoot && (a = f))
-            for (a = a.olderShadowRoot; a; )
+            for (a = a.olderShadowRoot; a;)
               B(a.childNodes, function (a) {
                 md(a, b, c, d, e)
               }),
@@ -3104,11 +3111,11 @@ function findElement() {
       id(a, b, function (a, b, e, f, g) {
         var c = null
         1 == a.nodeType ? (c = a) : 3 == a.nodeType && (c = a)
-        ;(null != c &&
-          (null != c.assignedSlot ||
-            (c.getDestinationInsertionPoints &&
-              0 < c.getDestinationInsertionPoints().length))) ||
-          md(a, b, e, f, g)
+          ; (null != c &&
+            (null != c.assignedSlot ||
+              (c.getDestinationInsertionPoints &&
+                0 < c.getDestinationInsertionPoints().length))) ||
+            md(a, b, e, f, g)
       })
     }
     var nd = {
@@ -3122,8 +3129,8 @@ function findElement() {
           ? Rb(d, "id") == a && b != d && Db(b, d)
             ? d
             : Qa(Ib(c, "*"), function (c) {
-                return Rb(c, "id") == a && b != c && Db(b, c)
-              })
+              return Rb(c, "id") == a && b != c && Db(b, c)
+            })
           : null
       },
       s: function (a, b) {
@@ -3256,9 +3263,9 @@ function isVisible(elem: HTMLElement) {
   if (parseFloat(style.opacity) < 0.1) return false
   if (
     elem.offsetWidth +
-      elem.offsetHeight +
-      elem.getBoundingClientRect().height +
-      elem.getBoundingClientRect().width ===
+    elem.offsetHeight +
+    elem.getBoundingClientRect().height +
+    elem.getBoundingClientRect().width ===
     0
   ) {
     return false
@@ -3305,7 +3312,7 @@ export default class LocatorBuilders {
   }
 
   window: Window
-  detach() {}
+  detach() { }
   static order: string[] = []
   static builderMap: Record<string, LocatorFunction> = {}
   static _preferredOrder: string[] = []
@@ -3522,6 +3529,8 @@ export default class LocatorBuilders {
     }
   }
 
+  //adf
+
   relativeXPathFromParent(current: HTMLElement) {
     let index = this.getNodeNbr(current)
     let currentPath =
@@ -3660,10 +3669,10 @@ LocatorBuilders.add(
       if (!text.match(/^\s*$/)) {
         return this.preciseXPath(
           "//" +
-            this.xpathHtmlElement("a") +
-            "[contains(text(),'" +
-            text.replace(/^\s+/, "").replace(/\s+$/, "") +
-            "')]",
+          this.xpathHtmlElement("a") +
+          "[contains(text(),'" +
+          text.replace(/^\s+/, "").replace(/\s+$/, "") +
+          "')]",
           e
         )
       }
@@ -3678,28 +3687,28 @@ LocatorBuilders.add("xpath:img", function (this: LocatorBuilders, _e) {
     if (e.alt != "") {
       return this.preciseXPath(
         "//" +
-          this.xpathHtmlElement("img") +
-          "[@alt=" +
-          this.attributeValue(e.alt) +
-          "]",
+        this.xpathHtmlElement("img") +
+        "[@alt=" +
+        this.attributeValue(e.alt) +
+        "]",
         e
       )
     } else if (e.title != "") {
       return this.preciseXPath(
         "//" +
-          this.xpathHtmlElement("img") +
-          "[@title=" +
-          this.attributeValue(e.title) +
-          "]",
+        this.xpathHtmlElement("img") +
+        "[@title=" +
+        this.attributeValue(e.title) +
+        "]",
         e
       )
     } else if (e.src != "") {
       return this.preciseXPath(
         "//" +
-          this.xpathHtmlElement("img") +
-          "[contains(@src," +
-          this.attributeValue(e.src) +
-          ")]",
+        this.xpathHtmlElement("img") +
+        "[contains(@src," +
+        this.attributeValue(e.src) +
+        ")]",
         e
       )
     }
@@ -3774,11 +3783,11 @@ LocatorBuilders.add("xpath:idRelative", function (this: LocatorBuilders, e) {
       ) {
         return this.preciseXPath(
           "//" +
-            this.xpathHtmlElement(parentNode.nodeName.toLowerCase()) +
-            "[@id=" +
-            this.attributeValue(parentNode.getAttribute("id") as string) +
-            "]" +
-            path,
+          this.xpathHtmlElement(parentNode.nodeName.toLowerCase()) +
+          "[@id=" +
+          this.attributeValue(parentNode.getAttribute("id") as string) +
+          "]" +
+          path,
           e
         )
       }
@@ -3796,20 +3805,20 @@ LocatorBuilders.add("xpath:href", function (this: LocatorBuilders, e) {
     if (href.search(/^http?:\/\//) >= 0) {
       return this.preciseXPath(
         "//" +
-          this.xpathHtmlElement("a") +
-          "[@href=" +
-          this.attributeValue(href) +
-          "]",
+        this.xpathHtmlElement("a") +
+        "[@href=" +
+        this.attributeValue(href) +
+        "]",
         e
       )
     } else {
       // use contains(), because in IE getAttribute("href") will return absolute path
       return this.preciseXPath(
         "//" +
-          this.xpathHtmlElement("a") +
-          "[contains(@href, " +
-          this.attributeValue(href) +
-          ")]",
+        this.xpathHtmlElement("a") +
+        "[contains(@href, " +
+        this.attributeValue(href) +
+        ")]",
         e
       )
     }
@@ -3967,6 +3976,8 @@ function getOptionLocator(option) {
 export const locatorBuilders = new LocatorBuilders(window)
 
 Recorder.addEventHandler("type", "change", function (event) {
+  console.log("typing2")
+
   // © Chen-Chieh Ping, SideeX Team
   if (
     event.target.tagName &&
@@ -3975,6 +3986,7 @@ Recorder.addEventHandler("type", "change", function (event) {
     (this.recordingState.typeLock = 1)
   ) {
     // END
+    console.log("typing3")
     let tagName = event.target.tagName.toLowerCase()
     let type = event.target.type
     if ("input" == tagName && Recorder.inputTypes.indexOf(type) >= 0) {
@@ -4066,7 +4078,7 @@ Recorder.addEventHandler(
           let formChk = tempTarget.tagName.toLowerCase()
           if (
             this.recordingState.tempValue ==
-              this.recordingState.enterTarget.value &&
+            this.recordingState.enterTarget.value &&
             this.recordingState.tabCheck == this.recordingState.enterTarget
           ) {
             record(
@@ -4153,7 +4165,7 @@ Recorder.addEventHandler(
           if (
             this.recordingState.focusTarget != null &&
             this.recordingState.focusTarget.value !=
-              this.recordingState.tempValue
+            this.recordingState.tempValue
           ) {
             tempbool = true
             this.recordingState.tempValue =
@@ -4927,8 +4939,75 @@ export async function record(
     })
   )
 }
+export enum IncrementalSource {
+  Mutation,
+  MouseMove,
+  MouseInteraction,
+  Scroll,
+  ViewportResize,
+  Input,
+  TouchMove,
+  MediaInteraction,
+  StyleSheetRule,
+  CanvasMutation,
+  Font,
+  Log,
+  Drag,
+  StyleDeclaration,
+  Selection,
+  AdoptedStyleSheet,
+  CustomElement
+}
 
 recorder.attach()
 
-window.record = record
-window.locatorBuilders = locatorBuilders
+// window.sessionRecorder = sessionRecorder
+let events = [];
+// sessionRecorder({
+//   emit: (event) => {
+//     events.push(event)
+//     if (
+//       event.data?.source !== 3 &&
+//       event.data?.source !== 1 &&
+//       event.data?.source !== 0
+//     ) {
+//       let a = IncrementalSource[event.data?.source]
+//       console.log(a, event)
+//       return
+//     }
+//     console.log("event not allowed")
+//   }
+// })
+// setInterval(async () => {
+//   try {
+//     const res = await axios.post("http://localhost:8000/uploadEvent", {
+//       event: events
+//     })
+//     console.log(res)
+//     console.log("events are sent")
+//     events = []
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }, 5000)
+
+// window.record = record
+// window.locatorBuilders = locatorBuilders
+
+
+let worker = (async () => {
+  console.log(chrome)
+  // const tab = await chrome.tabs.getCurrent()
+  // let tabId = tab.id;
+  const browser = await connect({
+    transport: await ExtensionTransport.connectTab(0),
+  });
+  const [page] = await browser.pages();
+
+  // console.log(`tab id is ${tabId}`)
+  console.log(await page.evaluate('document.title'));
+  // browser.disconnect();
+})
+let a = "";
+// worker()
+
